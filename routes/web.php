@@ -20,8 +20,10 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/score', 'HomeController@score')->name('score');
 Route::get('/my_courses', 'HomeController@myCourses')->name('my_courses');
+Route::get('/feedback', 'HomeController@feedback')->name('feedback');
 
 Route::resource('courses', 'CourseController');
 Route::resource('scores', 'ScoreController');
 Route::resource('users', 'UserController');
+Route::resource('feedbacks', 'FeedbackController');
 

@@ -49,7 +49,7 @@
                             ],
                             [
                                 'name' => '问题反馈',
-                                'route' => '#',
+                                'route' => route('feedback'),
                             ],
                             [
                                 'name' => '我的课程',

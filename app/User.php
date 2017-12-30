@@ -61,6 +61,7 @@ class User extends Authenticatable
     {
         $res = Course::with(['speakerInfo', 'scores'])
             ->where('isclose', '=', 1)
+            ->where('speaker', '!=', Auth::user()->id)
             ->orderBy('date', 'DESC')
             ->get()->filter(function ($item) {
 

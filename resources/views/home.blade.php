@@ -41,7 +41,7 @@
                         <th>地点</th>
                         <th>时间</th>
                         <th>状态</th>
-                        @if (!Auth::guest())
+                        @if (!Auth::guest() && Auth::user()->isAdmin())
                             <th>操作</th>
                         @endif
 
@@ -57,7 +57,7 @@
                             <td>{{ $course->location }}</td>
                             <td>{{ $course->date }}</td>
                             <td><span class="label label-{{ $labelTypes[$course->getState()['state']] }}">{{ $course->getState()['text'] }}</span></td>
-                            @if (!Auth::guest())
+                            @if (!Auth::guest() && Auth::user()->isAdmin())
                                 <td>
                                     <a class="btn btn-sm btn-info" href="{{ URL::to('courses/' . $course->id . '/edit') }}">编辑</a>
                                     {{--{{ Form::open(['url' => 'courses/' . $course->id, 'class' => 'pull-right']) }}--}}

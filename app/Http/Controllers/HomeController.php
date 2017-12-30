@@ -3,18 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\Feedback;
 use App\Models\Score;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('auth');
@@ -64,6 +61,19 @@ class HomeController extends Controller
         return view('myCourses', [
             'active' => 3,
             'courses' => $courses,
+        ]);
+    }
+
+    public function feedback(Request $request)
+    {
+        $feedback = Feedback::all();
+        $courses = Course::all()->where('isclose', '=', 0);
+        $user = User::all();
+
+        return view('feedback', [
+            'courses' => $courses,
+            'feedback' => $feedback,
+            'user' => $user
         ]);
     }
 }
