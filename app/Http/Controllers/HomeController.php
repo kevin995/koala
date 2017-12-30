@@ -52,7 +52,14 @@ class HomeController extends Controller
 
     public function myCourses()
     {
-        $courses = Course::all()->where('speaker', '=', Auth::user()->id)->sortByDesc('date');
+        $courses = Course::with('scores')
+            ->where('speaker', '=', Auth::user()->id)->get()
+            ->sortByDesc('date')->map(function ($item) {
+                $total = $item->scores->sum->score;
+                $item['total'] = $total;
+
+                return $item;
+            });
 
         return view('myCourses', [
             'active' => 3,

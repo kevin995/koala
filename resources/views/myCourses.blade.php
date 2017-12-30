@@ -22,6 +22,7 @@
                         <th>地点</th>
                         <th>日期</th>
                         <th>状态</th>
+                        <th>总分</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -31,6 +32,7 @@
                             <td>{{ $course->location }}</td>
                             <td>{{ $course->date }}</td>
                             <td><span class="label label-{{ $labelTypes[$course->getState()['state']] }}">{{ $course->getState()['text'] }}</span></td>
+                            <td>{{ $course->total }}</td>
                         </tr>
                     @endforeach
                     </tbody>

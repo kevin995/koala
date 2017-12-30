@@ -23,4 +23,5 @@ Route::get('/my_courses', 'HomeController@myCourses')->name('my_courses');
 
 Route::resource('courses', 'CourseController');
 Route::resource('scores', 'ScoreController');
+Route::resource('users', 'UserController');
 
