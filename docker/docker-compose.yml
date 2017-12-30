@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:5.7.20
+    restart: always
+    environment:
+     MYSQL_ROOT_PASSWORD: koala
+     MYSQL_DATABASE: koala
+     MYSQL_USER: koala
+     MYSQL_PASSWORD: koala
+    volumes:
+     - /home/a2htray/workspace/koala/db:/var/lib/mysql
+    ports:
+     - 3306:3306
+  web:
+    image: koala:1.0
+    volumes:
+      - /home/a2htray/workspace/koala:/usr/share/nginx/html
+    ports:
+      - 80:80
+    depends_on:
+      - db
