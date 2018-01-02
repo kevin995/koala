@@ -22,18 +22,33 @@ class ScoreController
 
         $v = Validator::make($data, [
             'course_id' => 'required|exists:courses,id',
-            'score' => 'required|integer',
+            'score_0' => 'required|integer',
+            'score_1' => 'required|integer',
+            'score_2' => 'required|integer',
+            'score_3' => 'required|integer',
+            'question' => 'required|string',
+            'suggest' => 'required|string',
         ]);
 
         if ($v->fails()) {
             Log::debug('ScoreController.create', [$v->errors()]);
             return redirect()->back()->withErrors($v->errors())->withInput();
         } else {
-            DB::transaction(function () use($data) {
+
+            $scores = ['scores' => [
+                $data['score_0'],
+                $data['score_1'],
+                $data['score_2'],
+                $data['score_3']
+            ]];
+
+            DB::transaction(function () use($data, $scores) {
                 Score::create([
                     'course_id' => $data['course_id'],
-                    'score' => $data['score'],
+                    'score' => json_encode($scores),
                     'scorer' => Auth::user()->id,
+                    'question' => $data['question'],
+                    'suggest' => $data['suggest'],
                 ]);
             });
 

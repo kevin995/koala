@@ -6,9 +6,11 @@ use App\Models\Course;
 use App\Models\Feedback;
 use App\Models\Score;
 use App\User;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -39,7 +41,8 @@ class HomeController extends Controller
         $unscoredCourses = $user->getUnscoredCourses();
         $scoredCourses = $user->getScoredCourses();
 
-        Log::debug('HomeController.score', [$unscoredCourses]);
+//        Log::debug('HomeController.score', [$scoredCourses]);
+
         return view('score', [
             'active' => 1,
             'unscored_courses' => $unscoredCourses,
@@ -51,16 +54,33 @@ class HomeController extends Controller
     {
         $courses = Course::with('scores')
             ->where('speaker', '=', Auth::user()->id)->get()
-            ->sortByDesc('date')->map(function ($item) {
-                $total = $item->scores->sum->score;
-                $item['total'] = $total;
+            ->sortByDesc('date');
 
-                return $item;
-            });
+//        Log::debug('HomeController.score', [$courses->first()->scores]);
+
+        $users = User::all()->pluck('name', 'id');
+
+        Log::debug('HomeController.score', [$users, $courses->pluck('scores')]);
+        Log::debug('HomeController.score', [$courses->pluck('id')]);
+//->pluck('question', 'scorer');
+//->pluck('suggest', 'scorer');
+//->only(['course_id', 'scorer', 'question'])->all();
+//->only(['course_id', 'scorer', 'suggest'])->all();
+        $questions = DB::table('scores')->whereIn('course_id', $courses->pluck('id'))
+            ->select(['course_id', 'scorer', 'question'])
+            ->get()->groupBy('course_id');
+        $suggests = DB::table('scores')->whereIn('course_id', $courses->pluck('id'))
+            ->select(['course_id', 'scorer', 'suggest'])
+            ->get()->groupBy('course_id');
+
+        Log::debug('HomeController.score', [$questions, $suggests]);
 
         return view('myCourses', [
-            'active' => 3,
+            'active' => 2,
             'courses' => $courses,
+            'users' => $users,
+            'questions' => $questions,
+            'suggests' => $suggests,
         ]);
     }
 

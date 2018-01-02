@@ -85,6 +85,7 @@ class User extends Authenticatable
             })->map(function ($item) {
                 $score = $item->scores->where('scorer', '=', Auth::user()->id)->first();
                 $item['score'] = $score->score;
+                $item['lscore'] = $score->lscore;
                 return $item;
             });
 

@@ -11,6 +11,11 @@
 |
 */
 
+use Doctrine\DBAL\Types\Type;
+
+
+Type::addType('json', 'App\Lib\JsonType');
+
 $app = new Illuminate\Foundation\Application(
     realpath(__DIR__.'/../')
 );

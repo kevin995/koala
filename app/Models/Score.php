@@ -10,6 +10,7 @@ use Ramsey\Uuid\Uuid;
  */
 class Score extends Model
 {
+
     protected $table = 'scores';
 
     public $timestamps = false;

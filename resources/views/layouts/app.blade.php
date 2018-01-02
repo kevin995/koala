@@ -48,10 +48,6 @@
                                 'route' => route('score')
                             ],
                             [
-                                'name' => '问题反馈',
-                                'route' => route('feedback'),
-                            ],
-                            [
                                 'name' => '我的课程',
                                 'route' => route('my_courses'),
                             ]
