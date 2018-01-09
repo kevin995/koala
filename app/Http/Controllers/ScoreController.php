@@ -25,7 +25,6 @@ class ScoreController
             'score_0' => 'required|integer',
             'score_1' => 'required|integer',
             'score_2' => 'required|integer',
-            'score_3' => 'required|integer',
             'question' => 'required|string',
             'suggest' => 'required|string',
         ]);
@@ -38,8 +37,7 @@ class ScoreController
             $scores = ['scores' => [
                 $data['score_0'],
                 $data['score_1'],
-                $data['score_2'],
-                $data['score_3']
+                $data['score_2']
             ]];
 
             DB::transaction(function () use($data, $scores) {

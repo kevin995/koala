@@ -21,11 +21,12 @@
                                 @endphp
                                 <input hidden name="course_id" value="{{ $course->id }}">
                                 <ul class="list-group">
-                                    @foreach(config('app.votes') as $q)
+                                    @foreach(config('app.votes') as $item)
                                         <li class="list-group-item">
                                             <div class="row">
-                                                <div class="col-lg-2">{{ $q }}</div>
-                                                <div class="col-lg-4 col-lg-offset-6">
+                                                <div class="col-lg-1"><b>{{ $item['label'] }}</b></div>
+                                                <div class="col-lg-4">{{ $item['description'] }}</div>
+                                                <div class="col-lg-2 col-lg-offset-2">
                                                     <select name="score_{{ $start++ }}" class="form-control">
                                                         <option value="1">1</option>
                                                         <option value="2">2</option>
@@ -42,11 +43,23 @@
                                             </div>
                                         </li>
                                     @endforeach
-                                    <li class="list-group-item"><span>问题</span>
-                                        <textarea name="question" id="" cols="50" rows="5"></textarea>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col-lg-1"><b>问题</b></div>
+                                            <div class="col-lg-6">
+                                                <textarea name="question" id="" cols="50" rows="5"></textarea>
+                                            </div>
+                                            <div class="col-lg-4">对本主题的问题和思考, 300字以内.</div>
+                                        </div>
                                     </li>
-                                    <li class="list-group-item"><span>建议</span>
-                                        <textarea name="suggest" id="" cols="50" rows="5"></textarea>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col-lg-1"><b>建议</b></div>
+                                            <div class="col-lg-6">
+                                                <textarea name="suggest" id="" cols="50" rows="5"></textarea>
+                                            </div>
+                                            <div class="col-lg-4">对演讲人的建议, 300字以内</div>
+                                        </div>
                                     </li>
                                     <li class="list-group-item">
                                         <div class="row">
@@ -73,7 +86,6 @@
                     <th>A分数</th>
                     <th>B分数</th>
                     <th>C分数</th>
-                    <th>D分数</th>
                     <th>反馈分数</th>
                 </tr>
                 </thead>
