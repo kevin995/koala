@@ -62,13 +62,11 @@ class HomeController extends Controller
 
         Log::debug('HomeController.score', [$users, $courses->pluck('scores')]);
         Log::debug('HomeController.score', [$courses->pluck('id')]);
-//->pluck('question', 'scorer');
-//->pluck('suggest', 'scorer');
-//->only(['course_id', 'scorer', 'question'])->all();
-//->only(['course_id', 'scorer', 'suggest'])->all();
+
         $questions = DB::table('scores')->whereIn('course_id', $courses->pluck('id'))
             ->select(['course_id', 'scorer', 'question'])
             ->get()->groupBy('course_id');
+
         $suggests = DB::table('scores')->whereIn('course_id', $courses->pluck('id'))
             ->select(['course_id', 'scorer', 'suggest'])
             ->get()->groupBy('course_id');

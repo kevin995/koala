@@ -5,6 +5,7 @@ namespace App\Models;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -77,6 +78,34 @@ class Course extends Model
     public function scores()
     {
         return $this->hasMany(Score::class, 'course_id', 'id');
+    }
 
+    public function getRateNum()
+    {
+        return $this->scores()->count();
+    }
+
+    public function getTotal()
+    {
+        $total = [];
+
+        Log::debug('Course.getTotal', [$this->scores()->get()]);
+
+        foreach ($this->scores()->get() as $item) {
+            Log::debug('Course.getTotal', [json_decode($item->score)->scores]);
+
+//            Log::debug('Course.getTotal', [$total->all()]);
+
+            $total = $total + json_decode($item->score)->scores;
+        }
+
+//        $this->scores()->each(function ($item) use(&$total) {
+//            Log::debug('Course.getTotal', [json_decode($item->score)->scores]);
+//            $total->concat(json_decode($item->score)->scores);
+//        });
+        Log::debug('Course.getTotal', [$total]);
+        return collect($total)->map(function ($item) {
+            return (int)$item;
+        })->sum();
     }
 }
