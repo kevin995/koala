@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Ramsey\Uuid\Uuid;
 
@@ -36,5 +37,10 @@ class Score extends Model
     public function course()
     {
         return $this->belongsTo(Course::class, 'course_id', 'id');
+    }
+
+    public function scorerInfo()
+    {
+        return $this->belongsTo(User::class, 'scorer', 'id');
     }
 }

@@ -16,7 +16,7 @@ class HomeController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except(['welcome']);
     }
 
     public function index()
@@ -92,6 +92,16 @@ class HomeController extends Controller
             'courses' => $courses,
             'feedback' => $feedback,
             'user' => $user
+        ]);
+    }
+
+    public function welcome(Request $request)
+    {
+        return view('welcome', [
+            'userTotal' => User::all()->count(),
+            'courseTotal' => Course::all()->count(),
+            'rateTraces' => Score::with('scorerInfo')
+                ->orderBy('created_at', 'DESC')->take(50)->get(),
         ]);
     }
 }
