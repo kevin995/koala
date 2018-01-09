@@ -22,7 +22,7 @@
                         <th>地点</th>
                         <th>日期</th>
                         <th>状态</th>
-                        <th>操作</th>
+                        <th style="width:200px;">操作</th>
                         {{--<th>总分</th>--}}
                     </tr>
                     </thead>
@@ -34,7 +34,8 @@
                             <td>{{ $course->date }}</td>
                             <td><span class="label label-{{ $labelTypes[$course->getState()['state']] }}">{{ $course->getState()['text'] }}</span></td>
                             <td>
-                                <button class="btn btn-primary" data-course-id="{{ $course->id }}" data-toggle="modal" data-target="#sentence">查看</button>
+                                <button class="btn btn-primary" data-course-id="{{ $course->id }}" data-toggle="modal" data-target="#sentence">反馈列表</button>
+                                <a class="btn btn-primary" href="#">听众评分</a>
                             </td>
                             {{--<td>{{ $course->total }}</td>--}}
                         </tr>
