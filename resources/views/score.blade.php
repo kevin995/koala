@@ -15,6 +15,9 @@
                             <h4 class="panel-title"><b>{{ $course->name }}</b> 主讲人:#{{ $course->speakerInfo->name }}#</h4>
                         </div>
                         <div class="panel-body">
+                            <div class="bg-danger">
+                                {{ Html::ul($errors->all()) }}
+                            </div>
                             {{ Form::open(array('url' => 'scores', 'class' => 'form-inline')) }}
                                 @php
                                     $start = 0;
@@ -24,7 +27,7 @@
                                     @foreach(config('app.votes') as $item)
                                         <li class="list-group-item">
                                             <div class="row">
-                                                <div class="col-lg-1"><b>{{ $item['label'] }}</b></div>
+                                                <div class="col-lg-1"><b>{{ $item['label'] }}<span class="text-danger">*</span></b></div>
                                                 <div class="col-lg-4">{{ $item['description'] }}</div>
                                                 <div class="col-lg-2 col-lg-offset-2">
                                                     <select name="score_{{ $start++ }}" class="form-control">
@@ -45,18 +48,18 @@
                                     @endforeach
                                     <li class="list-group-item">
                                         <div class="row">
-                                            <div class="col-lg-1"><b>问题</b></div>
+                                            <div class="col-lg-1"><b>问题<span class="text-danger">*</span></b></div>
                                             <div class="col-lg-6">
-                                                <textarea name="question" id="" cols="50" rows="5"></textarea>
+                                                <textarea name="question" id="" cols="50" rows="5">{{ old('question') }}</textarea>
                                             </div>
                                             <div class="col-lg-4">对本主题的问题和思考, 300字以内.</div>
                                         </div>
                                     </li>
                                     <li class="list-group-item">
                                         <div class="row">
-                                            <div class="col-lg-1"><b>建议</b></div>
+                                            <div class="col-lg-1"><b>建议<span class="text-danger">*</span></b></div>
                                             <div class="col-lg-6">
-                                                <textarea name="suggest" id="" cols="50" rows="5"></textarea>
+                                                <textarea name="suggest" id="" cols="50" rows="5">{{ old('suggest') }}</textarea>
                                             </div>
                                             <div class="col-lg-4">对演讲人的建议, 300字以内</div>
                                         </div>
