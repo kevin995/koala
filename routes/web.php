@@ -15,6 +15,7 @@ Route::get('/', 'HomeController@welcome');
 
 Auth::routes();
 
+Route::get('/trace', 'HomeController@trace')->name('trace');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/score', 'HomeController@score')->name('score');
 Route::get('/my_courses', 'HomeController@myCourses')->name('my_courses');

@@ -50,6 +50,10 @@
                             [
                                 'name' => '我的课程',
                                 'route' => route('my_courses'),
+                            ],
+                            [
+                                'name' => '课程排行',
+                                'route' => route('trace'),
                             ]
                         ];
                     @endphp
@@ -78,6 +82,7 @@
                                     @if (Auth::user()->isAdmin())
                                         <li><a href="{{ URL::to('courses/create') }}">新增课程</a></li>
                                         <li><a href="{{ URL::to('users') }}">用户列表</a></li>
+
                                     @endif
                                     <li>
                                         <a href="{{ route('logout') }}"

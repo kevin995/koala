@@ -95,6 +95,14 @@ class HomeController extends Controller
         ]);
     }
 
+    public function trace(Request $request)
+    {
+        return view('trace', [
+            'active' => 3,
+            'courses' => Course::with('speakerInfo')->get()
+        ]);
+    }
+
     public function welcome(Request $request)
     {
         return view('welcome', [
