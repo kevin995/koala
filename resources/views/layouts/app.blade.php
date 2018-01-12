@@ -56,12 +56,25 @@
                                 'route' => route('trace'),
                             ]
                         ];
+
+                        if (!Auth::guest()) {
+                            $user = Auth::user();
+
+                            $unScoredCount = \App\Models\Course::all()->where('isclose', '=', 1)
+                                ->where('speaker', '!=', $user->id)->count()
+                                - \App\Models\Score::all()->where('scorer', '=', $user->id)->count();
+
+                            if ($unScoredCount) {
+                                $menus[1]['name'] = $menus[1]['name'] . '<span class="badge progress-bar-danger">' . $unScoredCount . '</span>';
+                            }
+                        }
+
                     @endphp
 
                     <ul class="nav navbar-nav">
                         @if (!Auth::guest())
                             @for($i = 0; $i < count($menus); $i++)
-                                <li class="{{ isset($active) ? $active == $i ? 'active' : '' : ''}}"><a href="{{ $menus[$i]['route'] }}">{{ $menus[$i]['name'] }}</a></li>
+                                <li class="{{ isset($active) ? $active == $i ? 'active' : '' : ''}}"><a href="{{ $menus[$i]['route'] }}">{!! $menus[$i]['name'] !!}</a></li>
                             @endfor
                         @endif
                     </ul>

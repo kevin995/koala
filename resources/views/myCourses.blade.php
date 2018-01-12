@@ -24,7 +24,7 @@
                         <th>状态</th>
                         <th>总分</th>
                         <th>已评分</th>
-                        <th style="width:200px;">操作</th>
+                        <th style="width:100px;">操作</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -38,7 +38,7 @@
                             <td><a href="#"><span class="badge">{{ $course->getRateNum() }}</span></a></td>
                             <td>
                                 <button class="btn btn-primary" data-course-id="{{ $course->id }}" data-toggle="modal" data-target="#sentence">反馈列表</button>
-                                <a class="btn btn-primary" href="#">听众评分</a>
+                                {{--<a class="btn btn-primary" href="#">听众评分</a>--}}
                             </td>
                         </tr>
                     @endforeach
