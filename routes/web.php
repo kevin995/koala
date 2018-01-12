@@ -20,6 +20,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/score', 'HomeController@score')->name('score');
 Route::get('/my_courses', 'HomeController@myCourses')->name('my_courses');
 Route::get('/feedback', 'HomeController@feedback')->name('feedback');
+Route::get('/score_list', 'HomeController@scoreList')->name('score_list');
 
 Route::resource('courses', 'CourseController');
 Route::resource('scores', 'ScoreController');

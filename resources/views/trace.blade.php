@@ -29,7 +29,11 @@
                             <td>{{ $course->date }}</td>
                             <td><span class="label label-{{ $labelTypes[$course->getState()['state']] }}">{{ $course->getState()['text'] }}</span></td>
                             <td>{{ $course->getTotal() }}</td>
-                            <td>{{ $course->getRateNum() }}</td>
+                            <td>
+                                <a class="active btn-sm btn-warning" href="{{ Auth::user()->isAdmin() ? URL::route('score_list', ['courseId' => $course->id]) : '#'}}">
+                                    <span class="badge">{{ $course->getRateNum() }}</span>
+                                </a>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

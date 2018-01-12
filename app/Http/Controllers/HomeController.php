@@ -112,4 +112,31 @@ class HomeController extends Controller
                 ->orderBy('created_at', 'DESC')->take(50)->get(),
         ]);
     }
+
+    public function scoreList(Request $request)
+    {
+        if (!Auth::user()->isAdmin()) {
+            return '501';
+        }
+
+        $courseId = $request->get('courseId');
+
+        $scores = Score::with('scorerInfo')->where('course_id', '=', $courseId)
+            ->orderBy('created_at');
+
+        return view('scoreList', [
+            'scores' => $scores->get(),
+        ]);
+
+        $resp = '';
+
+        foreach ($scores->get() as $score) {
+
+            $r = array_merge([$score->scorerInfo->name], json_decode($score->score)->scores);
+
+            $resp .= implode(' ', $r) . '<br />';
+        }
+
+        return $resp;
+    }
 }
