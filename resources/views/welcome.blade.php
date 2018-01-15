@@ -3,6 +3,11 @@
 @section('content')
     <div class="container">
         <div class="row">
+            <div class="jumbotron">
+                <h1>Hello, Knowledge!</h1>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-lg-8">
                 <ul class="list-group">
                     @foreach($rateTraces as $trace)

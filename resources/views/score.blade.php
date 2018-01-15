@@ -89,7 +89,7 @@
                     <th>A分数</th>
                     <th>B分数</th>
                     <th>C分数</th>
-                    <th>反馈分数</th>
+                    {{--<th>反馈分数</th>--}}
                 </tr>
                 </thead>
                 <tbody>
@@ -100,7 +100,7 @@
                         @foreach(json_decode($course->score)->scores as $score)
                             <td>{{ $score }}</td>
                         @endforeach
-                        <td>{{ $course->lscore }}</td>
+                        {{--<td>{{ $course->lscore }}</td>--}}
                     </tr>
                 @endforeach
                 </tbody>

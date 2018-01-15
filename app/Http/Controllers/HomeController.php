@@ -99,7 +99,10 @@ class HomeController extends Controller
     {
         return view('trace', [
             'active' => 3,
-            'courses' => Course::with('speakerInfo')->get()
+            'courses' => Course::with('speakerInfo')
+                ->where('isclose', '=', 1)->get()->sortBy(function ($value, $key) {
+                    return $value->getTotal();
+                }, SORT_DESC, true),
         ]);
     }
 
