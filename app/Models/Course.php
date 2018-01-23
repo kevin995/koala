@@ -75,6 +75,19 @@ class Course extends Model
         return $res;
     }
 
+
+    public function hasSign()
+    {
+        $c = Sign::all()->where('user_id', '=', Auth::user()->id)
+            ->where('course_id', '=', $this->id)->count();
+
+        Log::debug('Course.hasSign', [$c]);
+
+        return $c != 0;
+
+    }
+
+
     public function scores()
     {
         return $this->hasMany(Score::class, 'course_id', 'id');

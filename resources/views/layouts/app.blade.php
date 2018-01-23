@@ -60,12 +60,12 @@
                         if (!Auth::guest()) {
                             $user = Auth::user();
 
-                            $unScoredCount = \App\Models\Course::all()->where('isclose', '=', 1)
-                                ->where('speaker', '!=', $user->id)->count()
-                                - \App\Models\Score::all()->where('scorer', '=', $user->id)->count();
+                            $unScoredCount = DB::table('signs')
+                                ->leftJoin('scores', 'signs.course_id', '=', 'scores.course_id')
+                                ->where('user_id', '=', Auth::user()->id)->count();
 
                             if ($unScoredCount) {
-                                $menus[1]['name'] = $menus[1]['name'] . '<span class="badge progress-bar-danger">' . $unScoredCount . '</span>';
+                                // $menus[1]['name'] = $menus[1]['name'] . '<span class="badge progress-bar-danger">' . $unScoredCount . '</span>';
                             }
                         }
 

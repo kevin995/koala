@@ -10,6 +10,9 @@
                 <b>暂无可评课程</b>
             @else
                 @foreach($unscored_courses as $course)
+                    @if (!$course->hasSign())
+                        @continue
+                    @endif
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title"><b>{{ $course->name }}</b> 主讲人:#{{ $course->speakerInfo->name }}#</h4>

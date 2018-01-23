@@ -14,7 +14,7 @@
 
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h4>下一场 <span class="label label-primary">New</span></h4>
+                    <h4>下一场 {{--<span class="label label-primary">New</span>--}}</h4>
                 </div>
                 <div class="panel-body">
                     @if ($nextCourse)
@@ -41,6 +41,7 @@
                         <th>地点</th>
                         <th>时间</th>
                         <th>状态</th>
+                        <th>打卡</th>
                         @if (!Auth::guest() && Auth::user()->isAdmin())
                             <th>操作</th>
                         @endif
@@ -57,6 +58,22 @@
                             <td>{{ $course->location }}</td>
                             <td>{{ $course->date }}</td>
                             <td><span class="label label-{{ $labelTypes[$course->getState()['state']] }}">{{ $course->getState()['text'] }}</span></td>
+                            <td>
+
+                                @if ($course->speaker != Auth::user()->id)
+                                    @if (!$course->hasSign() && $course->getState()['state'] == \App\Models\Course::STATE_FINISH)
+                                        {{ Form::open(array('url' => 'signs', 'class' => 'form-inline')) }}
+                                            <input type="hidden" name="course_id" value="{{ $course->id }}"/>
+                                            <button type="submit" class="btn btn-sm btn-primary">打卡</button>
+                                        {{ Form::close() }}
+                                    @else
+                                        @if ($course->hasSign())
+                                            已打卡
+                                        @endif
+                                    @endif
+                                @endif
+
+                            </td>
                             @if (!Auth::guest() && Auth::user()->isAdmin())
                                 <td>
                                     <a class="btn btn-sm btn-info" href="{{ URL::to('courses/' . $course->id . '/edit') }}">编辑</a>
@@ -66,6 +83,7 @@
                                     {{--{{ Form::close() }}--}}
                                 </td>
                             @endif
+
                         </tr>
                     @endforeach
                     </tbody>

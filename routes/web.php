@@ -26,4 +26,5 @@ Route::resource('courses', 'CourseController');
 Route::resource('scores', 'ScoreController');
 Route::resource('users', 'UserController');
 Route::resource('feedbacks', 'FeedbackController');
+Route::resource('signs', 'SignController');
 
